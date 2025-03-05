@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Professor Rating System</title>
+    <style>
+        /* Basic styling for error messages */
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ff0000;
+            background-color: #ffebee;
+            color: #ff0000;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Professor Rating System</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Login</h2>
+
+        <!-- Display error messages -->
+        {% if form.errors %}
+            <div class="alert">
+                Invalid username or password. Please try again.
+            </div>
+        {% endif %}
+
+        <!-- Login form -->
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+        <p>New user? <a href="{% url 'register' %}">Register here</a></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Professor Rating System</p>
+    </footer>
+</body>
+</html>
