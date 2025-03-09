@@ -1,0 +1,67 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .module {
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #f5f5f5;
+    }
+    a {
+        color: #79aec8;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="module">
+    <h1>Module Instances</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Taught By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for module_instance in module_instances %}
+                <tr>
+                    <td>{{ module_instance.module.code }}</td>
+                    <td>{{ module_instance.module.title }}</td>
+                    <td>{{ module_instance.year }}</td>
+                    <td>{{ module_instance.get_semester_display }}</td>
+                    <td>
+                        {% for professor in module_instance.professors.all %}
+                            <a href="{% url 'professor_detail' professor.id %}">{{ professor.name }}</a><br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{% url 'rate_module_instance' module_instance.id %}">Rate</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

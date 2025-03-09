@@ -1,0 +1,34 @@
+{% extends "admin/base_site.html" %}
+
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <script src="{% static 'js/sidebar.js' %}"></script>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <h1>Welcome, {{ user.username }}!</h1>
+
+            <!-- Professors Section -->
+            <div class="dashboard-section">
+                <h2>View Professors</h2>
+                <p>Explore the list of professors and their ratings.</p>
+                <div class="dashboard-link-container">
+                    <a href="{% url 'all_professors' %}" class="dashboard-link">Professors</a>
+                </div>
+            </div>
+
+            <!-- Modules Section -->
+            <div class="dashboard-section">
+                <h2>View Modules</h2>
+                <p>Browse the list of modules and the professors teaching them.</p>
+                <div class="dashboard-link-container">
+                    <a href="{% url 'module_instance_list_web' %}" class="dashboard-link">Modules</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

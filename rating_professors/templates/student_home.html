@@ -1,0 +1,37 @@
+<!-- student_home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome, {{ user.username }}! Here are the modules and professors:</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th>
+        <th>Year</th>
+        <th>Semester</th>
+        <th>Professors</th>
+        <th>Rate Professor</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for instance in module_instances %}
+        <tr>
+          <td>{{ instance.module }}</td>
+          <td>{{ instance.year }}</td>
+          <td>{{ instance.semester }}</td>
+          <td>
+            {% for prof in instance.professors %}
+              {{ prof }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </td>
+          <td>
+            <form method="POST" action="{% url 'rate_professor' instance.module_instance_id %}">
+              {% csrf_token %}
+              <button type="submit">Rate</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

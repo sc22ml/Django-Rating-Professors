@@ -1,0 +1,75 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .module {
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #f5f5f5;
+    }
+    a {
+        color: #79aec8;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .rating {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #4CAF50;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="module">
+    <h1>Professors</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Average Rating</th>
+                <th>Modules Taught</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for professor in professors %}
+                <tr>
+                    <td>{{ professor.name }}</td>
+                    <td>{{ professor.department }}</td>
+                    <td class="rating">{{ professor.average_rating|default:"No ratings yet" }}</td>
+                    <td>
+                        <ul>
+                            {% for module_instance in professor.module_instances.all %}
+                                <li>
+                                    {{ module_instance.module.title }} ({{ module_instance.year }} - {{ module_instance.get_semester_display }})
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="{% url 'rate_professor' professor.id %}">Rate</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -66,7 +66,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('id', 'professor_name', 'module_instance_details', 'rating', 'comment', 'created_at')
+        fields = ('id', 'professor_name', 'module_instance_details', 'rating', 'created_at')
         read_only_fields = ('created_at',)
 
 
@@ -75,7 +75,7 @@ class CreateRatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('professor', 'module_instance', 'rating', 'comment')
+        fields = ('professor', 'module_instance', 'rating')
 
     def validate(self, data):
         professor = data['professor']
@@ -102,17 +102,12 @@ class CreateRatingSerializer(serializers.ModelSerializer):
 
         if existing_rating:
             existing_rating.rating = validated_data['rating']
-            existing_rating.comment = validated_data.get('comment', '')
             existing_rating.save()
             return existing_rating
         
         # If there's no existing rating, create a new one
         validated_data['user'] = self.context['request'].user  # Assign logged-in user
         return Rating.objects.create(**validated_data)
-
-    # def create(self, validated_data):
-    #     validated_data['user'] = self.context['request'].user  # Assign logged-in user
-    #     return Rating.objects.create(**validated_data)
 
 
 class ProfessorModuleRatingSerializer(serializers.Serializer):

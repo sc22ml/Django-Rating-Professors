@@ -47,7 +47,7 @@ class UserLoginTests(APITestCase):
         # response = self.client.post(url, data, format = 'json')
         response = self.client.post(url, data, follow = True)
 
-        self.assertRedirects(response, reverse('dashboard'))
+        self.assertRedirects(response, reverse('student_home'))
         self.assertTrue(response.context['user'].is_authenticated)
         # self.assertEqual(response.status_code, status.HTTP_200_OK)      
         # self.assertIn("token", response.data)

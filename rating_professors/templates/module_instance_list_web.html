@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div class="module">
+    <h1>Module Instances</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Taught By</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for instance in module_instances %}
+                <tr>
+                    <td>{{ instance.module.code }}</td>
+                    <td>{{ instance.module.title }}</td>
+                    <td>{{ instance.year }}</td>
+                    <td>{{ instance.get_semester_display }}</td>
+                    <td>
+                        <ul>
+                            {% for professor in instance.professors.all %}
+                                <li>{{ professor.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
