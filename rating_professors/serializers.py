@@ -102,7 +102,6 @@ class CreateRatingSerializer(serializers.ModelSerializer):
             ).first()
 
             if existing_rating:
-                # If a rating already exists, we will just update the existing one instead of creating a new one
                 data['existing_rating'] = existing_rating
 
             return data
@@ -120,8 +119,7 @@ class CreateRatingSerializer(serializers.ModelSerializer):
                 logger.info(f"Rating updated: {existing_rating.id}")
                 return existing_rating
             
-            # If there's no existing rating, create a new one
-            validated_data['user'] = self.context['request'].user  # Assign logged-in user
+            validated_data['user'] = self.context['request'].user  
             rating = Rating.objects.create(**validated_data)
             logger.info(f"Rating created: {rating.id}")
             return rating
@@ -226,7 +224,6 @@ class CreateRatingSerializer(serializers.ModelSerializer):
         ).first()
 
         if existing_rating:
-            # If a rating already exists, we will just update the existing one instead of creating a new one
             data['existing_rating'] = existing_rating
 
         return data
@@ -239,8 +236,7 @@ class CreateRatingSerializer(serializers.ModelSerializer):
             existing_rating.save()
             return existing_rating
         
-        # If there's no existing rating, create a new one
-        validated_data['user'] = self.context['request'].user  # Assign logged-in user
+        validated_data['user'] = self.context['request'].user  
         return Rating.objects.create(**validated_data)
 
 

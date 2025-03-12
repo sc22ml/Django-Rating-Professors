@@ -17,8 +17,8 @@ def register_user():
     }
 
     try:
-        response = requests.post(url, json=data)  # Send as JSON
-        response.raise_for_status()  # Raise an exception for HTTP errors (4xx or 5xx)
+        response = requests.post(url, json=data)  
+        response.raise_for_status()  
     except requests.exceptions.RequestException as e:
         print(f"Request failed: {e}")
         return
@@ -178,30 +178,22 @@ def rate_professor(token):
         print(f"Error: {response.status_code} - {response.text}")
 
 
-#main
 def main():
     parser = argparse.ArgumentParser(description="Professor Rating Command-Line Client")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-    # Register command
     subparsers.add_parser("register", help="Register a new user")
 
-    # Login command
     subparsers.add_parser("login", help="Log in to the service")
 
-    # Logout command
     subparsers.add_parser("logout", help="Log out of the current session")
 
-    # List command
     subparsers.add_parser("list", help="List module instances and professors")
 
-    # View command
     subparsers.add_parser("view", help="View professor ratings")
 
-    # Average command
     subparsers.add_parser("average", help="View average rating of a professor in a module")
 
-    # Rate command
     subparsers.add_parser("rate", help="Rate a professor for a module instance")
 
     args = parser.parse_args()

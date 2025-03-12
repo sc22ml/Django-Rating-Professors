@@ -10,10 +10,10 @@ class Professor(models.Model):
     department = models.CharField(max_length = 100)
 
     def get_average_rating(self):
-        ratings = self.ratings.all()  # Use related_name
+        ratings = self.ratings.all()  
         if ratings.exists():
             avg = ratings.aggregate(Avg('rating'))['rating__avg']
-            return round(avg)  # Round to the nearest integer
+            return round(avg) 
         return 0
     
     def get_average_rating_for_module(self, module_code):
@@ -52,7 +52,7 @@ class ModuleInstance(models.Model):
     )
     semester = models.IntegerField(choices=SEMESTER_CHOICES)
     professors = models.ManyToManyField(Professor, related_name='module_instances')
-    students = models.ManyToManyField(User, related_name='module_instances')  # New field for students
+    students = models.ManyToManyField(User, related_name='module_instances') 
 
     class Meta:
         unique_together = ('module', 'year', 'semester')
