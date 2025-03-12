@@ -1,4 +1,3 @@
-# Django imports
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
