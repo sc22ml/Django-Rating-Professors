@@ -1,26 +1,24 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
-    ModuleInstanceListView, ProfessorRatingsView, ProfessorModuleRatingView, RateProfessorView,
-    RegisterView, LoginView, LogoutView, ProfessorViewSet, ModuleInstanceViewSet, RatingViewSet
+    RegisterView, LoginView, LogoutView,
+    ModuleInstanceListView, ProfessorRatingsView,
+    ProfessorModuleRatingView, RateProfessorView,
+    ProfessorViewSet, ModuleInstanceViewSet, RatingViewSet
 )
 
-# Create a router for viewsets
 router = DefaultRouter()
-router.register(r'professors', ProfessorViewSet)  # /api/professors/
-router.register(r'module-instances', ModuleInstanceViewSet)  # /api/module-instances/
-router.register(r'ratings', RatingViewSet)  # /api/ratings/
+router.register(r'professors', ProfessorViewSet)
+router.register(r'module-instances', ModuleInstanceViewSet)
+router.register(r'ratings', RatingViewSet)
 
 urlpatterns = [
-    # API Endpoints
-    path('api/register/', RegisterView.as_view(), name='register'),
-    path('api/login/', LoginView.as_view(), name='login'),
-    path('api/logout/', LogoutView.as_view(), name='logout'),
-    path('api/module-instances/', ModuleInstanceListView.as_view(), name='module_instance_list'),
-    path('api/professors/ratings/', ProfessorRatingsView.as_view(), name='professor_ratings'),
-    path('api/professors/<int:professor_id>/modules/<str:module_code>/rating/', ProfessorModuleRatingView.as_view(), name='professor_module_rating'),
-    path('api/rate/', RateProfessorView.as_view(), name='rate_professor'),
-
-    # Include router-generated URLs
-    path('api/', include(router.urls)),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('module-instances/', ModuleInstanceListView.as_view(), name='module-instance-list'),
+    path('professor-ratings/', ProfessorRatingsView.as_view(), name='professor-ratings'),  # Add this line
+    path('professor-module-rating/<int:professor_id>/<str:module_code>/', ProfessorModuleRatingView.as_view(), name='professor-module-rating'),
+    path('rate-professor/', RateProfessorView.as_view(), name='rate-professor'),
+    path('', include(router.urls)),
 ]

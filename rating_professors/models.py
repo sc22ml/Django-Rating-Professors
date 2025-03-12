@@ -67,7 +67,7 @@ class ModuleInstance(models.Model):
 
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    professor = models.ForeignKey('Professor', on_delete=models.CASCADE)
+    professor = models.ForeignKey('Professor', on_delete=models.CASCADE, related_name='ratings')
     module_instance = models.ForeignKey('ModuleInstance', on_delete=models.CASCADE)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.TextField(blank=True, null=True)

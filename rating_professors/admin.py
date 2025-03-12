@@ -4,13 +4,23 @@ from .models import Professor, Module, ModuleInstance, Rating
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'department')
+    list_display = ('name', 'email', 'department', 'average_rating')
     search_fields = ('name', 'email')
     list_filter = ('department',)
 
     def average_rating(self, obj):
         return obj.get_average_rating()
     average_rating.short_description = 'Average Rating'
+
+@admin.register(ModuleInstance)
+class ModuleInstanceAdmin(admin.ModelAdmin):
+    list_display = ('module', 'year', 'semester', 'professor_list')
+    list_filter = ('year', 'semester')
+    filter_horizontal = ('professors',)
+
+    def professor_list(self, obj):
+        return ", ".join([professor.name for professor in obj.professors.all()])
+    professor_list.short_description = 'Professors'
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
@@ -20,16 +30,6 @@ class ModuleAdmin(admin.ModelAdmin):
     def instance_count(self, obj):
         return obj.instances.count()
     instance_count.short_description = 'Instance Count'
-
-@admin.register(ModuleInstance)
-class ModuleInstanceAdmin(admin.ModelAdmin):
-    list_display = ('module', 'year', 'semester')
-    list_filter = ('year', 'semester')
-    filter_horizontal = ('professors',)
-
-    def professor_list(self, obj):
-        return ", ".join([professor.name for professor in obj.professors.all()])
-    professor_list.short_description = 'Professors' 
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
