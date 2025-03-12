@@ -35,9 +35,7 @@ class Module(models.Model):
 
     def __str__(self):
         return f"{self.code}: {self.title}"
-
-
-from django.contrib.auth.models import User
+    
 
 class ModuleInstance(models.Model):
     SEMESTER_CHOICES = [
@@ -62,7 +60,6 @@ class ModuleInstance(models.Model):
     
     def get_professors(self):
         return ", ".join([professor.name for professor in self.professors.all()])
-
 
 
 class Rating(models.Model):
