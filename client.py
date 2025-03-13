@@ -163,7 +163,6 @@ def rate_professor(token):
         print("Error: Module instance not found.")
         return
     
-    # Submit the rating
     url = f"{BASE_URL}rate-professor/"
     data = {
         "professor": professor_id,
