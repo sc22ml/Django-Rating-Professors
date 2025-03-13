@@ -20,5 +20,5 @@ urlpatterns = [
     path('professor-ratings/', ProfessorRatingsView.as_view(), name='professor-ratings'),  # Add this line
     path('professor-module-rating/<int:professor_id>/<str:module_code>/', ProfessorModuleRatingView.as_view(), name='professor-module-rating'),
     path('rate-professor/', RateProfessorView.as_view(), name='rate-professor'),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
 ]
