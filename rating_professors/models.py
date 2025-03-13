@@ -76,3 +76,6 @@ class Rating(models.Model):
 
     def __str__(self):
         return f"{self.user.username} rated {self.professor.name} {self.rating}/5"
+
+
+
