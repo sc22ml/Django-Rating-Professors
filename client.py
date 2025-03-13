@@ -2,7 +2,8 @@ import argparse
 import requests
 import getpass
 
-BASE_URL = "http://127.0.0.1:8000/api/"
+#BASE_URL = "http://127.0.0.1:8000/api/"
+BASE_URL = "http://sc22yfml.pythonanywhere.com/api/"
 
 def register_user():
     username = input("Enter username: ")
